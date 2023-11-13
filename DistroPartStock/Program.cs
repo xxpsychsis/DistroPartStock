@@ -11,13 +11,17 @@ class Program
     static async Task Main(string[] args)
     {
         //Init
-        var driver = new CustomWebDriver(BrowserType.Chrome).Driver;
+        var browser = BrowserType.Chrome;
+        var driver = new CustomWebDriver(browser).Driver;
         var loginPage = new LoginPage(driver);
         driver.Navigate().GoToUrl(baseurl);
 
         //Login
         var homePage = loginPage.Login(username, password);
+        var samsungPage = homePage.NavigateToSamsungPage();
+        var galaxyS23FePage = samsungPage.SelectSamsungGalaxyS23Fe();
 
+        galaxyS23FePage.GetProductDetails();
 
         driver.Quit();
     }

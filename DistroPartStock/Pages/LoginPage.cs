@@ -25,6 +25,7 @@ namespace DistroPartStock.Pages
             EmailInput.SendKeys(email);
             PasswordInput.SendKeys(password);
             LoginButton.Click();
+            Thread.Sleep(5000);
             return new HomePage(_driver);
         }
 
