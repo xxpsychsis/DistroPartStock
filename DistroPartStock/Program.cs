@@ -4,7 +4,7 @@ using OpenQA.Selenium.Firefox;
 
 class Program
 {
-    private static readonly string username = "eauclaire@ubreakfix.com";
+    private static readonly string username = "eauclaire@ubreakifix.com";
     private static readonly string password = "Tompa12844!@!@";
     private static readonly string baseurl = "https://distro.ubif.net/index.php?route=account/login";
 
