@@ -1,14 +1,18 @@
-﻿namespace DistroPartStock.Pages.Smartphone.Samsung
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+
+namespace DistroPartStock.Pages.Smartphone.Samsung
 {
     /// <summary>
     /// Samsung Base Page, This page Lists all the Phones
     /// </summary>
     public class SamsungPage
     {
-        private readonly HttpClient _httpClient;
-        public SamsungPage(HttpClient httpClient)
+        private readonly IWebDriver _driver;
+        public SamsungPage(IWebDriver driver)
         {
-            _httpClient = httpClient;
+            _driver = driver;
         }
     }
 }

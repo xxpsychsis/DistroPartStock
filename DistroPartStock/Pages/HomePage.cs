@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DistroPartStock.Pages.Smartphone.Samsung;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 
 namespace DistroPartStock.Pages
 {
     public class HomePage
     {
-        private readonly HttpClient _httpClient;
-        public HomePage(HttpClient httpClient)
+        private readonly IWebDriver _driver;
+        public HomePage(IWebDriver driver)
         {
-            _httpClient = httpClient;
+            _driver = driver;
+        }
+
+
+        public SamsungPage NavigateToSamsungPage()
+        {
+
+            return new SamsungPage(_driver);
         }
 
     }
