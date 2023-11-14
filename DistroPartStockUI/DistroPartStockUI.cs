@@ -15,6 +15,7 @@ namespace DistroPartStockUI
     {
         LoginPage loginPage;
         HttpClient client;
+        CookieContainer cookies;
         private List<string> urlList = new List<string>();
         List<ProductInfo> products = new List<ProductInfo>();
 
@@ -23,7 +24,7 @@ namespace DistroPartStockUI
         {
             InitializeComponent();
             //Init HttpClient
-            CookieContainer cookies = new();
+            cookies = new();
             HttpClientHandler handler = new();
             handler.CookieContainer = cookies;
             client = new(handler);
@@ -87,7 +88,7 @@ namespace DistroPartStockUI
                         var textValue = (cb.Text).Replace(" ", "");
                         if (Enum.TryParse<SettingsEnum>(textValue, out SettingsEnum enumValue))
                         {
-                            
+
                             var url = GetEnumDescription(enumValue);
                             urlList.Add(url);
                         }
@@ -102,13 +103,13 @@ namespace DistroPartStockUI
             {
                 await ScrapeWebsiteData(url);
             }
-            SaveToCsv();
+            exportBox.Visible = true;
         }
 
 
-        private void SaveToCsv()
+        private void SaveToCsv(string path)
         {
-            using (var writer = new StreamWriter("C:\\Users\\Damien Sprinkle\\Desktop\\output.csv"))
+            using (var writer = new StreamWriter(path))
             using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
             {
                 csv.WriteRecords(products);
@@ -162,6 +163,30 @@ namespace DistroPartStockUI
         private void settingsPanel_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void BrowseButton_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+            {
+                // Set the initial directory (optional)
+                folderBrowserDialog.SelectedPath = @"C:\";
+
+                // Show the dialog and check if the user clicked OK
+                DialogResult result = folderBrowserDialog.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    // Update your output folder path
+                    string selectedPath = folderBrowserDialog.SelectedPath;
+                    filePath.Text = selectedPath;
+                }
+            }
+        }
+
+        private void ExportButton_Click(object sender, EventArgs e)
+        {
+            SaveToCsv(filePath.Text);
         }
     }
 }

@@ -37,8 +37,13 @@
             settingsPanel = new GroupBox();
             scrapeButton = new Button();
             samsungGalaxyS23Fe = new CheckBox();
+            browseButton = new Button();
+            filePath = new TextBox();
+            exportBox = new GroupBox();
+            exportButton = new Button();
             LoginPanel.SuspendLayout();
             settingsPanel.SuspendLayout();
+            exportBox.SuspendLayout();
             SuspendLayout();
             // 
             // loginButton
@@ -99,7 +104,7 @@
             // 
             settingsPanel.Controls.Add(scrapeButton);
             settingsPanel.Controls.Add(samsungGalaxyS23Fe);
-            settingsPanel.Location = new Point(218, 12);
+            settingsPanel.Location = new Point(218, 8);
             settingsPanel.Name = "settingsPanel";
             settingsPanel.Size = new Size(189, 426);
             settingsPanel.TabIndex = 7;
@@ -128,11 +133,53 @@
             samsungGalaxyS23Fe.Text = "Samsung GalaxyS23FE";
             samsungGalaxyS23Fe.UseVisualStyleBackColor = true;
             // 
+            // browseButton
+            // 
+            browseButton.Location = new Point(6, 22);
+            browseButton.Name = "browseButton";
+            browseButton.Size = new Size(75, 23);
+            browseButton.TabIndex = 1;
+            browseButton.Text = "Browse";
+            browseButton.UseVisualStyleBackColor = true;
+            browseButton.Click += BrowseButton_Click;
+            // 
+            // filePath
+            // 
+            filePath.Location = new Point(87, 22);
+            filePath.Name = "filePath";
+            filePath.Size = new Size(113, 23);
+            filePath.TabIndex = 0;
+            filePath.Text = "C:\\";
+            // 
+            // exportBox
+            // 
+            exportBox.Controls.Add(exportButton);
+            exportBox.Controls.Add(filePath);
+            exportBox.Controls.Add(browseButton);
+            exportBox.Location = new Point(425, 10);
+            exportBox.Name = "exportBox";
+            exportBox.Size = new Size(200, 100);
+            exportBox.TabIndex = 9;
+            exportBox.TabStop = false;
+            exportBox.Text = "Export";
+            exportBox.Visible = false;
+            // 
+            // exportButton
+            // 
+            exportButton.Location = new Point(6, 51);
+            exportButton.Name = "exportButton";
+            exportButton.Size = new Size(194, 43);
+            exportButton.TabIndex = 2;
+            exportButton.Text = "Export";
+            exportButton.UseVisualStyleBackColor = true;
+            exportButton.Click += ExportButton_Click;
+            // 
             // DistroPartStockUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(exportBox);
             Controls.Add(settingsPanel);
             Controls.Add(LoginPanel);
             Name = "DistroPartStockUI";
@@ -141,6 +188,8 @@
             LoginPanel.PerformLayout();
             settingsPanel.ResumeLayout(false);
             settingsPanel.PerformLayout();
+            exportBox.ResumeLayout(false);
+            exportBox.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -155,5 +204,9 @@
         private GroupBox settingsPanel;
         private Button scrapeButton;
         private CheckBox samsungGalaxyS23Fe;
+        private Button browseButton;
+        private TextBox filePath;
+        private GroupBox exportBox;
+        private Button exportButton;
     }
 }
