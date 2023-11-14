@@ -77,24 +77,28 @@ namespace DistroPartStockUI
 
         private async void ScrapeButton_Click(object sender, EventArgs e)
         {
-            foreach (Control c in Controls)
+            foreach (Control panelControl in settingsPanel.Controls)
             {
-                if (c is CheckBox)
+                if (panelControl is CheckBox)
                 {
-                    CheckBox cb = (CheckBox)c;
-                    if (cb.Checked == true)
+                    CheckBox cb = (CheckBox)panelControl;
+                    if (cb.Checked)
                     {
                         var textValue = (cb.Text).Replace(" ", "");
                         if (Enum.TryParse<SettingsEnum>(textValue, out SettingsEnum enumValue))
                         {
-                            Console.WriteLine("Value Was Not Parsed Successfully");
+                            
                             var url = GetEnumDescription(enumValue);
                             urlList.Add(url);
-                        }                       
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Value Was Not Parsed Successfully:  {textValue}");
+                        }
                     }
                 }
             }
-            foreach(var url in urlList)
+            foreach (var url in urlList)
             {
                 await ScrapeWebsiteData(url);
             }
@@ -112,7 +116,7 @@ namespace DistroPartStockUI
         }
 
 
-        private async Task ScrapeWebsiteData(string pageUrl) 
+        private async Task ScrapeWebsiteData(string pageUrl)
         {
             var response = await client.GetAsync(pageUrl);
             var pageContent = await response.Content.ReadAsStringAsync();
@@ -153,6 +157,11 @@ namespace DistroPartStockUI
             var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
 
             return attributes.Length > 0 ? attributes[0].Description : value.ToString();
+        }
+
+        private void settingsPanel_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

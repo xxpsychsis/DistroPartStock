@@ -106,6 +106,7 @@
             settingsPanel.TabStop = false;
             settingsPanel.Text = "Settings";
             settingsPanel.Visible = false;
+            settingsPanel.Enter += settingsPanel_Enter;
             // 
             // scrapeButton
             // 
