@@ -30,7 +30,7 @@ namespace DistroPartStock.Pages.Smartphone.Samsung
                 foreach (var productTile in productTiles)
                 {
                     // Select relevant elements within the product tile
-                    var productNameNode = productTile.SelectSingleNode(".//div[@class='caption']/a");
+                    var productNameNode = productTile.SelectSingleNode(".//div[@class='caption']//a");
                     var modelNode = productTile.SelectSingleNode(".//div[@class='caption']/div[@class='details']/small[@class='text-info']");
                     var onHandNode = productTile.SelectSingleNode(".//div[@class='caption']/div[@class='details']/small[@class='text-danger']");
 
