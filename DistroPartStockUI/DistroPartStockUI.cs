@@ -111,14 +111,14 @@ namespace DistroPartStockUI
         {
             try
             {
-                using (var writer = new StreamWriter(path))
+                using (var writer = new StreamWriter($"{path}\\output.csv"))
                 using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
                 {
                     csv.WriteRecords(products);
                 }
 
             }
-            catch (UnauthorizedAccessException)
+            catch (UnauthorizedAccessException ex)
             {
 
             }
@@ -196,6 +196,30 @@ namespace DistroPartStockUI
         private void ExportButton_Click(object sender, EventArgs e)
         {
             SaveToCsv(filePath.Text);
+        }
+
+        private void SelectButton_Click(object sender, EventArgs e)
+        {
+            foreach (Control panelControl in settingsPanel.Controls)
+            {
+                if (panelControl is CheckBox)
+                {
+                    CheckBox cb = (CheckBox)panelControl;
+                    cb.Checked = true;
+                }
+            }
+        }
+
+        private void DeselectButton_Click(object sender, EventArgs e)
+        {
+            foreach (Control panelControl in settingsPanel.Controls)
+            {
+                if (panelControl is CheckBox)
+                {
+                    CheckBox cb = (CheckBox)panelControl;
+                    cb.Checked = false;
+                }
+            }
         }
     }
 }

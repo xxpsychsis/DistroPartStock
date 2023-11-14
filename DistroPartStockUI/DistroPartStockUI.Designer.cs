@@ -35,6 +35,8 @@
             label2 = new Label();
             LoginPanel = new Panel();
             settingsPanel = new GroupBox();
+            deselectButton = new Button();
+            selectButton = new Button();
             scrapeButton = new Button();
             samsungGalaxyS23Fe = new CheckBox();
             browseButton = new Button();
@@ -102,6 +104,8 @@
             // 
             // settingsPanel
             // 
+            settingsPanel.Controls.Add(deselectButton);
+            settingsPanel.Controls.Add(selectButton);
             settingsPanel.Controls.Add(scrapeButton);
             settingsPanel.Controls.Add(samsungGalaxyS23Fe);
             settingsPanel.Location = new Point(218, 8);
@@ -113,9 +117,29 @@
             settingsPanel.Visible = false;
             settingsPanel.Enter += settingsPanel_Enter;
             // 
+            // deselectButton
+            // 
+            deselectButton.Location = new Point(97, 361);
+            deselectButton.Name = "deselectButton";
+            deselectButton.Size = new Size(89, 23);
+            deselectButton.TabIndex = 10;
+            deselectButton.Text = "Deselect All";
+            deselectButton.UseVisualStyleBackColor = true;
+            deselectButton.Click += DeselectButton_Click;
+            // 
+            // selectButton
+            // 
+            selectButton.Location = new Point(4, 361);
+            selectButton.Name = "selectButton";
+            selectButton.Size = new Size(89, 23);
+            selectButton.TabIndex = 9;
+            selectButton.Text = "Select All";
+            selectButton.UseVisualStyleBackColor = true;
+            selectButton.Click += SelectButton_Click;
+            // 
             // scrapeButton
             // 
-            scrapeButton.Location = new Point(6, 390);
+            scrapeButton.Location = new Point(3, 389);
             scrapeButton.Name = "scrapeButton";
             scrapeButton.Size = new Size(183, 36);
             scrapeButton.TabIndex = 8;
@@ -208,5 +232,7 @@
         private TextBox filePath;
         private GroupBox exportBox;
         private Button exportButton;
+        private Button selectButton;
+        private Button deselectButton;
     }
 }
