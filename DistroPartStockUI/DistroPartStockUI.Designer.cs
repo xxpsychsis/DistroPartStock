@@ -158,7 +158,7 @@
             exportBox.Controls.Add(browseButton);
             exportBox.Location = new Point(425, 10);
             exportBox.Name = "exportBox";
-            exportBox.Size = new Size(200, 100);
+            exportBox.Size = new Size(200, 101);
             exportBox.TabIndex = 9;
             exportBox.TabStop = false;
             exportBox.Text = "Export";
