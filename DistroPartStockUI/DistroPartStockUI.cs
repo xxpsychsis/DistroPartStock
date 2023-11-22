@@ -1,13 +1,6 @@
 using DistroPartStock.Pages;
 using System.Net;
-using System.Net.Http;
-using System.Windows.Forms;
-using HtmlAgilityPack;
 using System.ComponentModel;
-using System.Security.Policy;
-using CsvHelper.Configuration;
-using CsvHelper;
-using System.Globalization;
 using Newtonsoft.Json.Linq;
 
 namespace DistroPartStockUI
@@ -136,25 +129,6 @@ namespace DistroPartStockUI
         }
 
 
-        private void SaveToCsv(string path)
-        {
-            try
-            {
-                using (var writer = new StreamWriter($"{path}\\output.csv"))
-                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
-                {
-                    csv.WriteRecords(products);
-                }
-
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-
-            }
-
-        }
-
-
         private async Task ScrapeWebsiteData(string pageUrl)
         {
             var response = await client.GetAsync(pageUrl);
@@ -203,20 +177,6 @@ namespace DistroPartStockUI
 
         }
 
-
-        private static string GetEnumDescription(Enum value)
-        {
-            var fieldInfo = value.GetType().GetField(value.ToString());
-            var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
-
-            return attributes.Length > 0 ? attributes[0].Description : value.ToString();
-        }
-
-        private void settingsPanel_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void browseSettingsFileButton_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -236,9 +196,5 @@ namespace DistroPartStockUI
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
