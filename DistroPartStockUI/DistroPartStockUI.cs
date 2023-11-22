@@ -60,6 +60,11 @@ namespace DistroPartStockUI
             {
                 LoginPanel.Visible = false;
             }
+            else
+            {
+                return;
+            }
+
             //Clear the Text Box Values
             usernameTextBox.Text = "";
             passwordTextbox.Text = "";

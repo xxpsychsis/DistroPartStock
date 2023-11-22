@@ -106,7 +106,7 @@
             settingsPanel.Controls.Add(settingsFilePath);
             settingsPanel.Controls.Add(browseSettingsFileButton);
             settingsPanel.Controls.Add(scrapeButton);
-            settingsPanel.Location = new Point(12, 12);
+            settingsPanel.Location = new Point(8, 154);
             settingsPanel.Name = "settingsPanel";
             settingsPanel.Size = new Size(189, 88);
             settingsPanel.TabIndex = 7;
@@ -164,9 +164,9 @@
             // 
             // progressBar
             // 
-            progressBar.Location = new Point(8, 107);
+            progressBar.Location = new Point(6, 243);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(204, 23);
+            progressBar.Size = new Size(191, 23);
             progressBar.TabIndex = 10;
             progressBar.Visible = false;
             // 
