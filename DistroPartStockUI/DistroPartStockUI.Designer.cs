@@ -182,7 +182,7 @@
             Controls.Add(settingsPanel);
             Controls.Add(LoginPanel);
             Name = "DistroPartStockUI";
-            Text = "Form1";
+            Text = "DistroPartStock";
             LoginPanel.ResumeLayout(false);
             LoginPanel.PerformLayout();
             settingsPanel.ResumeLayout(false);
