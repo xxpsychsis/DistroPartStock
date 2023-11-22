@@ -8,6 +8,7 @@ using System.Security.Policy;
 using CsvHelper.Configuration;
 using CsvHelper;
 using System.Globalization;
+using Newtonsoft.Json.Linq;
 
 namespace DistroPartStockUI
 {
@@ -18,6 +19,8 @@ namespace DistroPartStockUI
         CookieContainer cookies;
         private List<string> urlList = new List<string>();
         List<ProductInfo> products = new List<ProductInfo>();
+        private BindingList<ProductInfo> phoneDataList = new BindingList<ProductInfo>();
+
 
         private static readonly string homePageUrl = "https://distro.ubif.net/index.php?route=common/home";
         public DistroPartStockUI()
@@ -31,6 +34,27 @@ namespace DistroPartStockUI
 
             //Init Pages
             loginPage = new LoginPage(client);
+            dataGridView.DataSource = phoneDataList;
+            dataGridView.Columns["ProductName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView.Columns["ProductName"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            dataGridView.CellFormatting += DataGridView_CellFormatting;
+
+        }
+
+
+        private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Check if the current cell is in the "OnHand" column
+            if (dataGridView.Columns[e.ColumnIndex].Name == "OnHand")
+            {
+                // Check if the cell value is "Out Of Stock"
+                if (e.Value != null && e.Value.ToString() == "Out of Stock")
+                {
+                    // Apply bold font style
+                    e.CellStyle.Font = new System.Drawing.Font(dataGridView.Font, System.Drawing.FontStyle.Bold);
+                }
+            }
         }
 
         private async Task Login()
@@ -78,32 +102,37 @@ namespace DistroPartStockUI
 
         private async void ScrapeButton_Click(object sender, EventArgs e)
         {
-            foreach (Control panelControl in settingsPanel.Controls)
-            {
-                if (panelControl is CheckBox)
-                {
-                    CheckBox cb = (CheckBox)panelControl;
-                    if (cb.Checked)
-                    {
-                        var textValue = (cb.Text).Replace(" ", "");
-                        if (Enum.TryParse<SettingsEnum>(textValue, out SettingsEnum enumValue))
-                        {
 
-                            var url = GetEnumDescription(enumValue);
-                            urlList.Add(url);
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Value Was Not Parsed Successfully:  {textValue}");
-                        }
-                    }
+            var filePath = settingsFilePath.Text;
+            string json = File.ReadAllText(filePath);
+
+            JObject jsonObject = JObject.Parse(json);
+
+            foreach (JProperty phoneProperty in jsonObject["Phones"].Children())
+            {
+                string phoneName = phoneProperty.Name;
+                bool scrape = (bool)phoneProperty.Value["Scrape"];
+                string url = (string)phoneProperty.Value["Url"];
+
+                if (scrape)
+                {
+                    urlList.Add(url);
                 }
             }
+            var phonesToCheck = urlList.Count;
+            var phonesChecked = 0;
+            progressBar.Visible = true;
+            progressBar.Maximum = phonesToCheck;
             foreach (var url in urlList)
             {
+                progressBar.Value = phonesChecked;
                 await ScrapeWebsiteData(url);
+                phonesChecked++;
             }
+            dataGridView.Refresh();
             exportBox.Visible = true;
+            progressBar.Value = 0;
+            progressBar.Visible = false;
         }
 
 
@@ -151,10 +180,24 @@ namespace DistroPartStockUI
                     var productInfo = new ProductInfo
                     {
                         ProductName = productNameNode?.GetAttributeValue("title", ""),
-                        Model = modelNode?.InnerText.Trim(),
+                        SKU = modelNode?.InnerText.Trim(),
                         OnHand = onHandNode?.InnerText.Trim()
                     };
-                    products.Add(productInfo);
+                    if (productInfo.ProductName != null)
+                    {
+                        Console.WriteLine(productInfo.ProductName);
+                        if (productInfo.ProductName.Contains("UB Display"))
+                        {
+                            products.Add(productInfo);
+                            phoneDataList.Add(productInfo);
+                        }
+                        if (productInfo.ProductName.Contains("Glass/LCD"))
+                        {
+                            products.Add(productInfo);
+                            phoneDataList.Add(productInfo);
+                        }
+                    }
+
                 }
             }
 
@@ -174,52 +217,28 @@ namespace DistroPartStockUI
 
         }
 
-        private void BrowseButton_Click(object sender, EventArgs e)
+        private void browseSettingsFileButton_Click(object sender, EventArgs e)
         {
-            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                // Set the initial directory (optional)
-                folderBrowserDialog.SelectedPath = @"C:\";
+                openFileDialog.Title = "Select a File";
+                openFileDialog.Filter = "JSON Files|*.json";
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-                // Show the dialog and check if the user clicked OK
-                DialogResult result = folderBrowserDialog.ShowDialog();
-
-                if (result == DialogResult.OK)
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Update your output folder path
-                    string selectedPath = folderBrowserDialog.SelectedPath;
-                    filePath.Text = selectedPath;
+                    // Display the selected file path in the TextBox
+                    settingsFilePath.Text = openFileDialog.FileName;
+
+                    // You can also use openFileDialog.FileName to get the selected file path
+                    // Do whatever you need with the file path
                 }
             }
         }
 
-        private void ExportButton_Click(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            SaveToCsv(filePath.Text);
-        }
 
-        private void SelectButton_Click(object sender, EventArgs e)
-        {
-            foreach (Control panelControl in settingsPanel.Controls)
-            {
-                if (panelControl is CheckBox)
-                {
-                    CheckBox cb = (CheckBox)panelControl;
-                    cb.Checked = true;
-                }
-            }
-        }
-
-        private void DeselectButton_Click(object sender, EventArgs e)
-        {
-            foreach (Control panelControl in settingsPanel.Controls)
-            {
-                if (panelControl is CheckBox)
-                {
-                    CheckBox cb = (CheckBox)panelControl;
-                    cb.Checked = false;
-                }
-            }
         }
     }
 }

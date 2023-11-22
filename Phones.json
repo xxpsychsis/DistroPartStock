@@ -1,0 +1,64 @@
+{
+  "Phones": {
+    "SamsungGalaxyS23FE": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_3232&limit=999"
+    },
+    "SamsungGalaxyS23": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_3020&limit=999"
+    },
+    "SamsungGalaxyS22": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2666&limit=999"
+    },
+    "SamsungGalaxyS21FE": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2664&limit=999"
+    },
+    "SamsungGalaxyS21": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2540&limit=999"
+    },
+    "SamsungGalaxyS20FE": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2443&limit=999"
+    },
+    "SamsungGalaxyS23Ultra": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_3022&limit=999"
+    },
+    "SamsungGalaxyS22Ultra": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2668&limit=999"
+    },
+    "SamsungGalaxyS21Ultra": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2542&limit=999"
+    },
+    "SamsungZFold5": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_3167&limit=999"
+    },
+    "SamsungZFold4": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2945&limit=999"
+    },
+    "SamsungZFold3": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2649&limit=999"
+    },
+    "SamsungZFlip5": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_3166&limit=999"
+    },
+    "SamsungZFlip4": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2946&limit=999"
+    },
+    "SamsungZFlip3": {
+      "Scrape": true,
+      "Url": "https://distro.ubif.net/index.php?route=product/category&path=1637_110_2648&limit=999"
+    }
+  }
+}
