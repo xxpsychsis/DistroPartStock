@@ -113,7 +113,6 @@
             settingsPanel.TabStop = false;
             settingsPanel.Text = "Select Phones.json File";
             settingsPanel.Visible = false;
-            settingsPanel.Enter += settingsPanel_Enter;
             // 
             // settingsFilePath
             // 
@@ -162,7 +161,6 @@
             dataGridView.RowTemplate.Height = 25;
             dataGridView.Size = new Size(1014, 403);
             dataGridView.TabIndex = 10;
-            dataGridView.CellContentClick += dataGridView1_CellContentClick;
             // 
             // progressBar
             // 
