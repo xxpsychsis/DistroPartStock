@@ -6,8 +6,6 @@ namespace DistroPartStock.Pages
     {
         private readonly HttpClient _httpClient;
         private static readonly string PAGEURL = "https://distro.ubif.net/index.php?route=account/login"; // Replace with the actual login page URL
-        private static readonly string USERNAME = "eauclaire@ubreakifix.com"; // Replace with the actual username
-        private static readonly string PASSWORD = "Tompa12844!@!@"; // Replace with the actual password
 
         public LoginPage(HttpClient httpClient)
         {
@@ -18,8 +16,8 @@ namespace DistroPartStock.Pages
         {
             var formData = new Dictionary<string, string>
             {
-                { "email", USERNAME },
-                { "password", PASSWORD }
+                { "email", username },
+                { "password", password }
             };
 
             var content = new FormUrlEncodedContent(formData);
